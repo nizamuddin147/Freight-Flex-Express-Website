@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Freight Flex Express"
+description = "A responsive carrier-focused website for Freight Flex Express LLC, helping owner-operators and motor carriers learn about dispatch services and request support."
+version = "1.0.0"
+id = "artifacts/freight-flex-express"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18207
+
+[services.development]
+run = "pnpm --filter @workspace/freight-flex-express run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/freight-flex-express", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/freight-flex-express/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18207"
+BASE_PATH = "/"
